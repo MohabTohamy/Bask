@@ -101,7 +101,7 @@ function RegisterForm() {
                 </Formik>
 
                 {/* React  Hot Toast  notifications    */}
-                <Toaster position="top-center " />
+                <Toaster position="top-center" />
             </div>
         </div>
     );
