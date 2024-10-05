@@ -149,13 +149,13 @@ const AddAppointmentModal = ({ closeModal, addAppointment }: AddAppointmentModal
                 />
                 <div className="flex justify-between mt-4">
                     <button
-                        className="bg-red-500 text-white py-2 px-4 rounded-lg"
+                        className="bg-white text-black py-2 px-4 rounded-lg border border-cyan-950"
                         onClick={closeModal}
                     >
                         Cancel
                     </button>
                     <button
-                        className="bg-blue-500 text-white py-2 px-4 rounded-lg"
+                        className="bg-cyan-900 text-white py-2 px-4 rounded-lg"
                         onClick={handleSubmit}
                     >
                         Add Appointment
