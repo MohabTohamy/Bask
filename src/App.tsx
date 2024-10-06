@@ -1,5 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import LoginForm from './Components/Login/LoginForm';
 import RegisterForm from './Components/Register/RegisterForm';
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
@@ -9,6 +8,8 @@ import './App.css';
 import Layout from "./Components/Layout/Layout";
 import NotFound from "./Components/NotFound/NotFound";
 import Dashboard from "./Components/Appointment/Dashboard/Dashboard";
+import BasicCalender from "./Components/ReactBigCalender/BasicCalender";
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 
@@ -21,6 +22,12 @@ const router = createBrowserRouter([{
   {
     path: "/register",
     element: <RegisterForm />,
+  },
+  {
+
+    path: "/Calendar",
+    element: <BasicCalender />,
+
   },
   {
     path: "/appointment",
@@ -37,13 +44,11 @@ const router = createBrowserRouter([{
 }
 
 ]);
-
 function App() {
   return (
-
     <RouterProvider router={router} />
-
   )
 
 }
-export default App
+
+export default App;
