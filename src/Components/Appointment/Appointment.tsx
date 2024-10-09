@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { debounce } from "lodash";
 import { useFormik } from "formik";
+import AppointmentDetails from "./AppointmentDetails/AppointmentDetails";
 
 
 interface Appointment {
@@ -30,6 +31,7 @@ const AppointmentPage = ({ appointments, deleteAppointment, editAppointment }: A
     const [currentPage, setCurrentPage] = useState(1);
     const appointmentsPerPage = 7; // Number of appointments per page
 
+    const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
 
     const [searchQuery, setSearchQuery] = useState("");
     console.log(searchQuery);
@@ -118,41 +120,40 @@ const AppointmentPage = ({ appointments, deleteAppointment, editAppointment }: A
                 </thead>
                 <tbody>
                     {currentAppointments.length > 0 ? (
-                        currentAppointments
-                            // .filter(
-                            //     (appt) => {
-                            //         return appt.name.toLowerCase() === '' ?
-                            //             appt : appt.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            //             appt.doctor.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            //             appt.phone.includes(searchQuery);
+                        currentAppointments.map((appt, index) => (
+                            <tr key={index} className="hover:bg-gray-100 text-center" onClick={() => setSelectedAppointment(appt)}>
+                                <td className="py-2 px-4 border-y">{appt.appointmentsid}</td>
+                                <td className="py-2 px-4 border-y">{appt.doctor}</td>
+                                <td className="py-2 px-4 border-y">{appt.name}</td>
+                                <td className="py-2 px-4 border-y">{appt.reason}</td>
+                                <td className="py-2 px-4 border-y">{appt.phone}</td>
+                                <td className="py-2 px-4 border-y">{appt.date}</td>
+                                <td className="py-2 px-4 border-y">{appt.etime}</td>
+                                <td className="py-2 px-4 border-y">{appt.ltime}</td>
+                                <td className="py-2 px-4 border-y">{appt.status}</td>
+                                <td className="py-2 px-4 border-y">{appt.billing}</td>
 
-                            //     })
-                            .map((appt, index) => (
-                                <tr key={index} className="hover:bg-gray-100 text-center">
-                                    <td className="py-2 px-4 border-y">{appt.appointmentsid}</td>
-                                    <td className="py-2 px-4 border-y">{appt.doctor}</td>
-                                    <td className="py-2 px-4 border-y">{appt.name}</td>
-                                    <td className="py-2 px-4 border-y">{appt.reason}</td>
-                                    <td className="py-2 px-4 border-y">{appt.phone}</td>
-                                    <td className="py-2 px-4 border-y">{appt.date}</td>
-                                    <td className="py-2 px-4 border-y">{appt.etime}</td>
-                                    <td className="py-2 px-4 border-y">{appt.ltime}</td>
-                                    <td className="py-2 px-4 border-y">{appt.status}</td>
-                                    <td className="py-2 px-4 border-y">{appt.billing}</td>
+                                {/* // Trigger the delete function */}
+                                <button type="button" className="py-2 px-4"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        deleteAppointment(appt.appointmentsid);
+                                    }} >
+                                    <i className="fa-solid fa-trash-can"></i>
 
-                                    {/* // Trigger the delete function */}
-                                    <button type="button" className="py-2 px-4"
-                                        onClick={() => deleteAppointment(appt.appointmentsid)} >
-                                        <i className="fa-solid fa-trash-can"></i>
+                                </button>
 
-                                    </button>
+                                {/* // Open the edit modal */}
 
-                                    {/* // Open the edit modal */}
-                                    <button type="button" className="py-2 px-4"
-                                        onClick={() => editAppointment(appt)} >
-                                        <i className="fa-solid fa-pen"></i></button>
-                                </tr>
-                            ))
+
+                                <button type="button" className="py-2 px-4"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        editAppointment(appt);
+                                    }} >
+                                    <i className="fa-solid fa-pen"></i></button>
+                            </tr>
+                        ))
                     ) : (
                         <tr>
                             <td colSpan={9} className="text-center py-4">
@@ -187,7 +188,13 @@ const AppointmentPage = ({ appointments, deleteAppointment, editAppointment }: A
                 </span>
             </div>
 
-
+            {/* Show Appointment Details */}
+            {selectedAppointment && (
+                <AppointmentDetails
+                    appointment={selectedAppointment}
+                    closeDetails={() => setSelectedAppointment(null)}
+                />
+            )}
 
 
         </div>
