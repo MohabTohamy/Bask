@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface Appointment {
     appointmentsid: number;
@@ -20,9 +20,11 @@ interface Appointment {
 interface AddAppointmentModalProps {
     closeModal: () => void;
     addAppointment: (appt: Appointment) => void;
+    appointmentToEdit?: Appointment | null;
+    isEditMode?: boolean;
 }
 
-const AddAppointmentModal = ({ closeModal, addAppointment }: AddAppointmentModalProps) => {
+const AddAppointmentModal = ({ closeModal, addAppointment, appointmentToEdit, isEditMode = false, }: AddAppointmentModalProps) => {
     const [newAppointment, setNewAppointment] = useState<Appointment>({
         appointmentsid: 0,
         doctor: "",
@@ -38,6 +40,12 @@ const AddAppointmentModal = ({ closeModal, addAppointment }: AddAppointmentModal
         billing: 0,
 
     });
+
+    useEffect(() => {
+        if (isEditMode && appointmentToEdit) {
+            setNewAppointment(appointmentToEdit);
+        }
+    }, [isEditMode, appointmentToEdit]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setNewAppointment({
@@ -55,15 +63,15 @@ const AddAppointmentModal = ({ closeModal, addAppointment }: AddAppointmentModal
 
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
             <div className="bg-white p-6 rounded-lg w-96 absolute right-0 top-0 h-full overflow-y-auto">
-                <h2 className="text-2xl font-semibold mb-4">Add New Appointment</h2>
-                <input
+                <h2 className="text-2xl font-semibold mb-4">{isEditMode ? "Edit Appointment" : "Add New Appointment"}</h2>
+                {/* <input
                     type="text"
                     name="appointmentsid"
                     placeholder="appointmentsid"
                     value={newAppointment.appointmentsid}
                     onChange={handleChange}
                     className="w-full p-2 border mb-4"
-                />
+                /> */}
                 <input
                     type="text"
                     name="doctor"
@@ -158,7 +166,7 @@ const AddAppointmentModal = ({ closeModal, addAppointment }: AddAppointmentModal
                         className="bg-cyan-900 text-white py-2 px-4 rounded-lg"
                         onClick={handleSubmit}
                     >
-                        Add Appointment
+                        {isEditMode ? "Update Appointment" : "Add Appointment"}
                     </button>
                 </div>
             </div>
