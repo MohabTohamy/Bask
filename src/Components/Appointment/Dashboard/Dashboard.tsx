@@ -11,6 +11,8 @@ interface Appointment {
   name: string;
   phone: string;
   reason: string;
+  reasontext: string;
+
   age: number;
   gender: string;
   date: string;

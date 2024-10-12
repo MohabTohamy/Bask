@@ -4,6 +4,7 @@ interface Appointment {
     name: string;
     phone: string;
     reason: string;
+    reasontext: string;
     age: number;
     gender: string;
     date: string;
@@ -21,8 +22,8 @@ interface AppointmentDetailsProps {
 const AppointmentDetails = ({ appointment, closeDetails }: AppointmentDetailsProps) => {
     return (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center ">
-            <div className="bg-white p-3 rounded-lg w-[768px] absolute right-0 top-20 h-5/6 overflow-y-auto">
-                <div className="border-4 border-orange-300 rounded-lg p-5 h-full">
+            <div className="bg-white p-3 rounded-lg md:w-[768px] sm:w-[400px] absolute right-0 top-20 h-5/6 overflow-y-auto">
+                <div className="border-4 border-orange-300 rounded-lg p-5  3xl:md:h-full">
                     <div onClick={closeDetails} className="cursor-pointer"><i className="fa-solid fa-chevron-right text-4xl text-cyan-900"></i></div>
                     <h2 className="text-2xl font-semibold mb-4">Appointment Details #{appointment.appointmentsid}</h2>
                     <div className="bg-slate-200 p-4 rounded-lg flex justify-around mb-10">

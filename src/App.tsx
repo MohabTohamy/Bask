@@ -11,6 +11,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 
+
 const router = createBrowserRouter([{
   path: "/", element: <Layout />, children: [{
     path: "/Calendar",
@@ -28,7 +29,9 @@ const router = createBrowserRouter([{
 ]);
 function App() {
   return (
+
     <RouterProvider router={router} />
+
   )
 
 }
