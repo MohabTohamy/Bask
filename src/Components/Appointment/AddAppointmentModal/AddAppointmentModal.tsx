@@ -17,7 +17,6 @@ interface Appointment {
 }
 
 
-
 interface AddAppointmentModalProps {
     closeModal: () => void;
     addAppointment: (appt: Appointment) => void;

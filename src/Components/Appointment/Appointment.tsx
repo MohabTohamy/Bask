@@ -20,6 +20,16 @@ interface Appointment {
     billing: number;
 }
 
+interface Appendages {
+
+    uppereyelid: string;
+    lowereyelid: string;
+    lacrimalsystem: string;
+    orbitalexamination: string;
+    extracularmovements: string;
+    appendagenotes: string;
+}
+
 interface AppointmentPageProps {
     appointments: Appointment[];
     deleteAppointment: (id: number) => void;

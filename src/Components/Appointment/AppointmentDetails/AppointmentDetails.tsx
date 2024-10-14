@@ -1,3 +1,7 @@
+import { useState } from "react";
+import Appendages from "./Appendages";
+import AnteriorSegment from "./AnteriorSegment";
+
 interface Appointment {
     appointmentsid: number;
     doctor: string;
@@ -14,12 +18,19 @@ interface Appointment {
     billing: number;
 }
 
+
 interface AppointmentDetailsProps {
     appointment: Appointment;
     closeDetails: () => void;
 }
 
 const AppointmentDetails = ({ appointment, closeDetails }: AppointmentDetailsProps) => {
+
+    const [selectedAppendages, setSelectedAppendages] = useState<Appointment | null>(null);
+    const [selectedAnterior, setSelectedAnterior] = useState<Appointment | null>(null);
+
+
+
     return (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center ">
             <div className="bg-white p-3 rounded-lg md:w-[768px] sm:w-[400px] absolute right-0 top-20 h-5/6 overflow-y-auto">
@@ -90,9 +101,32 @@ const AppointmentDetails = ({ appointment, closeDetails }: AppointmentDetailsPro
                         <button className="bg-gray-200 text-black  shadow-2xl py-2 px-4 rounded-lg" onClick={closeDetails}>
                             Close
                         </button>
+                        <button className="bg-gray-200 text-black  shadow-2xl py-2 px-4 rounded-lg" onClick={() => setSelectedAppendages(appointment)}>
+                            Appendages
+                        </button>
+                        <button className="bg-gray-200 text-black  shadow-2xl py-2 px-4 rounded-lg" onClick={() => setSelectedAnterior(appointment)}>
+                            Anterior Segment
+                        </button>
                     </div>
                 </div>
             </div>
+
+            {/* Show Appendages */}
+            {selectedAppendages && (
+                <Appendages
+                    appointment={selectedAppendages}
+                    closeDetails={() => setSelectedAppendages(null)}
+                />
+            )}
+
+
+            {/* Show Appendages */}
+            {selectedAnterior && (
+                <AnteriorSegment
+                    appointment={selectedAnterior}
+                    closeDetails={() => setSelectedAnterior(null)}
+                />
+            )}
         </div>
     );
 };
