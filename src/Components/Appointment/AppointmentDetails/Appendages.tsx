@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
+// import AnteriorSegment from "./AnteriorSegment";
 
 interface Appointment {
     appointmentsid: number;
@@ -41,6 +42,8 @@ interface AppendagesProps {
 }
 
 const Appendages = ({ appointment, closeDetails, }: AppendagesProps) => {
+    // const [selectedAnterior, setSelectedAnterior] = useState<Appointment | null>(null);
+
     const [submittedData, setSubmittedData] = useState<Appendages | null>(null); // State to store submitted data
 
 
@@ -336,11 +339,21 @@ const Appendages = ({ appointment, closeDetails, }: AppendagesProps) => {
                                 type="submit">
                                 Confirm
                             </button>
-
+                            {/* <button className=" py-2 px-4 " onClick={() => setSelectedAnterior(appointment)}>
+                                <i className="fa-solid fa-caret-right text-5xl text-cyan-950"></i>
+                            </button> */}
                         </div>
                     </form>
                 </div>
             </div>
+
+            {/* Show Anterior Segment */}
+            {/* {selectedAnterior && (
+                <AnteriorSegment
+                    appointment={selectedAnterior}
+                    closeDetails={() => setSelectedAnterior(null)}
+                />
+            )} */}
         </div>
     );
 };

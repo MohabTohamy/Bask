@@ -27,11 +27,29 @@ interface AppointmentDetailsProps {
 }
 
 const AppointmentDetails = ({ appointment, closeDetails }: AppointmentDetailsProps) => {
-
+    const examComponents = [Appendages, AnteriorSegment, PosteriorSegment, CranialNerves];
+    const [currentComponentIndex, setCurrentComponentIndex] = useState(0);
     const [selectedAppendages, setSelectedAppendages] = useState<Appointment | null>(null);
     const [selectedAnterior, setSelectedAnterior] = useState<Appointment | null>(null);
     const [selectedPosterior, setSelectedPosterior] = useState<Appointment | null>(null);
     const [selectedCranialNerves, setSelectedCranialNerves] = useState<Appointment | null>(null);
+
+    const handleNext = () => {
+        setCurrentComponentIndex((prevIndex) => prevIndex + 1);
+        if (currentComponentIndex === examComponents.length - 1) {
+            closeDetails();
+        }
+    }
+
+    const handlePrevious = () => {
+        setCurrentComponentIndex((prevIndex) => prevIndex - 1);
+        if (currentComponentIndex === 0) {
+            closeDetails();
+        }
+    }
+
+    const CurrentComponent = examComponents[currentComponentIndex];
+
 
 
 
@@ -125,8 +143,8 @@ const AppointmentDetails = ({ appointment, closeDetails }: AppointmentDetailsPro
                         <button className="bg-gray-200 text-black  shadow-2xl py-2 px-4 rounded-lg" onClick={closeDetails}>
                             Close
                         </button>
-                        <button className="bg-gray-200 text-black  shadow-2xl py-2 px-4 rounded-lg" onClick={() => setSelectedAppendages(appointment)}>
-                            Appendages
+                        <button className="bg-transparent  py-2 px-4" onClick={() => setSelectedAppendages(appointment)}>
+                            <i className="fa-solid fa-caret-right text-5xl text-cyan-950"></i>
                         </button>
                         <button className="bg-gray-200 text-black  shadow-2xl py-2 px-4 rounded-lg" onClick={() => setSelectedAnterior(appointment)}>
                             Anterior Segment
@@ -138,40 +156,58 @@ const AppointmentDetails = ({ appointment, closeDetails }: AppointmentDetailsPro
                             Cranial Nerves
                         </button>
 
+                        {/* Navigation Buttons */}
+                        <div className="flex justify-between">
+                            <button
+                                onClick={handlePrevious}
+                                disabled={currentComponentIndex === 0}
+                                className="bg-blue-500 text-white py-2 px-4 rounded disabled:bg-gray-300"
+                            >
+                                Previous
+                            </button>
+                            <button
+                                onClick={handleNext}
+                                disabled={currentComponentIndex === examComponents.length - 1}
+                                className="bg-blue-500 text-white py-2 px-4 rounded disabled:bg-gray-300"
+                            >
+                                Next
+                            </button>
+
+                        </div>
                     </div>
                 </div>
+
+                {/* Show Appendages */}
+                {selectedAppendages && (
+                    <Appendages
+                        appointment={selectedAppendages}
+                        closeDetails={() => setSelectedAppendages(null)}
+                    />
+                )}
+
+
+                {/* Show Anterior Segment */}
+                {selectedAnterior && (
+                    <AnteriorSegment
+                        appointment={selectedAnterior}
+                        closeDetails={() => setSelectedAnterior(null)}
+                    />
+                )}
+                {/* Show posterior Segment */}
+                {selectedPosterior && (
+                    <PosteriorSegment
+                        appointment={selectedPosterior}
+                        closeDetails={() => setSelectedPosterior(null)}
+                    />
+                )}
+                {/* Show Cranial Nerves */}
+                {selectedCranialNerves && (
+                    <CranialNerves
+                        appointment={selectedCranialNerves}
+                        closeDetails={() => setSelectedCranialNerves(null)}
+                    />
+                )}
             </div>
-
-            {/* Show Appendages */}
-            {selectedAppendages && (
-                <Appendages
-                    appointment={selectedAppendages}
-                    closeDetails={() => setSelectedAppendages(null)}
-                />
-            )}
-
-
-            {/* Show Anterior Segment */}
-            {selectedAnterior && (
-                <AnteriorSegment
-                    appointment={selectedAnterior}
-                    closeDetails={() => setSelectedAnterior(null)}
-                />
-            )}
-            {/* Show posterior Segment */}
-            {selectedPosterior && (
-                <PosteriorSegment
-                    appointment={selectedPosterior}
-                    closeDetails={() => setSelectedPosterior(null)}
-                />
-            )}
-            {/* Show Cranial Nerves */}
-            {selectedCranialNerves && (
-                <CranialNerves
-                    appointment={selectedCranialNerves}
-                    closeDetails={() => setSelectedCranialNerves(null)}
-                />
-            )}
         </div>
     );
 };
