@@ -12,11 +12,13 @@ function Dashboard() {
                     {/* Chart Section */}
                     <div className="flex-1 p-4 bg-white shadow-md rounded-lg">
                         <h2 className="text-lg font-semibold mb-4 text-center sm:text-left">Total Earning</h2>
-                        <Charts />
+                        <div className="w-full h-64 sm:h-96">
+                            <Charts />
+                        </div>
                     </div>
 
                     {/* Right Sidebar */}
-                    <div className="flex flex-col gap-6 min-w-[300px] lg:min-w-[350px]">
+                    <div className="flex flex-col gap-6 w-full lg:w-auto lg:min-w-[350px]">
                         {/* Total Booking Card */}
                         <div className="p-4 bg-white shadow-md rounded-lg">
                             <h2 className="text-sm font-medium mb-2 text-center sm:text-left">
@@ -34,17 +36,23 @@ function Dashboard() {
                         <div className="p-4 bg-white shadow-md rounded-lg">
                             <h2 className="text-lg font-semibold mb-4 text-center sm:text-left">Request Status</h2>
                             <div className="flex flex-col items-center">
-                                <Doughnut
-                                    data={{
-                                        datasets: [
-                                            {
-                                                data: [50, 200, 100],
-                                                backgroundColor: ["#ff0000", "#1bff00", "#FFCE56"],
-                                                hoverBackgroundColor: ["#FF6384", "#1bff00", "#FFCE56"],
-                                            },
-                                        ],
-                                    }}
-                                />
+                                <div className="w-full h-48 sm:h-64">
+                                    <Doughnut
+                                        data={{
+                                            datasets: [
+                                                {
+                                                    data: [50, 200, 100],
+                                                    backgroundColor: ["#ff0000", "#1bff00", "#FFCE56"],
+                                                    hoverBackgroundColor: ["#FF6384", "#1bff00", "#FFCE56"],
+                                                },
+                                            ],
+                                        }}
+                                        options={{
+                                            responsive: true,
+                                            maintainAspectRatio: false,
+                                        }}
+                                    />
+                                </div>
                                 <div className="mt-4 space-y-2 text-sm text-center">
                                     <div>
                                         <i className="fa-solid fa-circle text-green-500 mr-2"></i>
